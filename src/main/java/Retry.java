@@ -2,8 +2,8 @@ import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
 
 public class Retry implements IRetryAnalyzer {
-    private int attempt = 1;
     private static final int MAX_RETRY = 5;
+    private int attempt = 1;
 
     @Override
     public boolean retry(ITestResult iTestResult) {
@@ -11,7 +11,7 @@ public class Retry implements IRetryAnalyzer {
             if (attempt < MAX_RETRY) {
                 attempt++;
                 iTestResult.setStatus(ITestResult.FAILURE);
-                System.out.println("Retrying once again");
+                System.out.println("Retrying one more time...");
                 return true;
             } else {
                 iTestResult.setStatus(ITestResult.FAILURE);
@@ -19,7 +19,7 @@ public class Retry implements IRetryAnalyzer {
         } else {
             iTestResult.setStatus(ITestResult.SUCCESS);
         }
+
         return false;
     }
-
 }
