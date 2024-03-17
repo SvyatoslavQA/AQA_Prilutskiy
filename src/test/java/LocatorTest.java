@@ -1,37 +1,3 @@
-//id
-//name
-//classname
-//tagname
-//linktext
-//partiallinktext
-//xpath
-//Поиск по атрибуту, например By.xpath("//tag[@attribute='value']");
-//Поиск по тексту, например By.xpath("//tag[text()='text']");
-//Поиск по частичному совпадению атрибута, например By.xpath("//tag[contains(@attribute,'text')]");
-//Поиск по частичному совпадению текста, например By.xpath("//tag[contains(text(),'text')]");
-//ancestor, например //*[text()='Enterprise Testing']//ancestor::div
-//descendant
-//following
-//parent
-//preceding
-//Подсказка:  XPath Axes
-//*поиск элемента с условием AND, например //input[@class='_2zrpKA _1dBPDZ' and @type='text']
-//css
-//.class
-//.class1.class2
-//.class1 .class2
-//#id
-//tagname
-//tagname.class
-//[attribute=value]
-//[attribute~=value]
-//[attribute|=value]
-//[attribute^=value]
-//[attribute$=value]
-//[attribute*=value]
-//Подсказка: https://www.w3schools.com/cssref/css_selectors.asp
-
-
 import configuration.ReadProperties;
 import core.BrowserService;
 import org.openqa.selenium.By;
@@ -52,7 +18,94 @@ public class LocatorTest {
         driver.findElement(By.name("user-name")).sendKeys("standard_user");
         driver.findElement(By.id("password")).sendKeys("secret_sauce");
         driver.findElement(By.cssSelector("#login-button")).click();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
+    }
+
+    @Test
+    public void cssAppLogoTest() {
+        Assert.assertTrue(driver.findElement(By.cssSelector(".app_logo")).isDisplayed());
+    }
+
+    @Test
+    public void idTest() {
+        Assert.assertTrue(driver.findElement(By.cssSelector("#shopping_cart_container")).isDisplayed());
+    }
+
+    @Test
+    public void classTest() {
+        Assert.assertTrue(driver.findElement(By.cssSelector(".bm-burger-button")).isDisplayed());
+    }
+
+    @Test
+    public void tagTest() {
+        Assert.assertEquals(20, driver.findElements(By.cssSelector("a")).size());
+    }
+
+    @Test
+    public void attributeNameTest() {
+        Assert.assertEquals(10, driver.findElements(By.cssSelector("[name]")).size());
+    }
+
+    @Test
+    public void enabledTest() {
+        Assert.assertEquals(6, driver.findElements(By.cssSelector(":enabled")).size());
+    }
+
+
+    @Test
+    public void parentTest() {
+        Assert.assertTrue(driver.findElement(By.xpath("//option/parent::select")).isDisplayed());
+    }
+
+    @Test
+    public void ancestorTest() {
+        Assert.assertTrue(driver.findElement(By.xpath("//a/ancestor::ul")).isDisplayed());
+    }
+
+    @Test
+    public void attributeTest() {
+        Assert.assertTrue(driver.findElement(By.xpath("//*[@id = 'inventory_container']")).isDisplayed());
+    }
+
+    @Test
+    public void containsTest() {
+        Assert.assertTrue(driver.findElement(By.xpath("//div[contains(@id, 'button')]")).isDisplayed());
+    }
+
+    @Test
+    public void indexElementTest() {
+        Assert.assertTrue(driver.findElement(By.xpath("//div[@class = 'inventory_item_img']/a[1]")).isDisplayed());
+    }
+
+    @Test
+    public void divClassTest() {
+        Assert.assertTrue(driver.findElement(By.xpath("//div[@class = 'shopping_cart_container']/a[1]")).isDisplayed());
+
+    }
+
+    @Test
+    public void fullTextTest() {
+        Assert.assertTrue(driver.findElement(By.xpath("//div[text()='Sauce Labs Onesie']")).isDisplayed());
+    }
+
+    @Test
+    public void containsTextTest() {
+        Assert.assertTrue(driver.findElement(By.xpath("//div[contains(text(), 'bike at night.')]")).isDisplayed());
+    }
+
+    @Test
+    public void notFoundDescendantTest() {
+        Assert.assertFalse(driver.findElement(By.xpath("//div/descendant::a")).isDisplayed());
+    }
+
+    @Test
+    public void followingTest() {
+        Assert.assertTrue(driver.findElement(By.xpath("//div/div[@class='inventory_item']/following::img")).isDisplayed());
+    }
+
+    @Test
+    public void precedingTest() {
+        Assert.assertTrue(driver.findElement(By.xpath("//div/div[@class='inventory_item']/preceding::img")).isDisplayed());
     }
 
 
