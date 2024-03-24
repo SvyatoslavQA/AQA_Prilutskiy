@@ -27,6 +27,27 @@ public class LocatorTest {
     }
 
     @Test
+    public void ususalClassNameTest() {
+        Assert.assertTrue(driver.findElement(By.className("page_wrapper")).isDisplayed());
+    }
+
+    @Test
+    public void usualLinkTest() {
+        Assert.assertTrue(driver.findElement(By.linkText("Sauce Labs Backpack")).isDisplayed());
+    }
+
+    @Test
+    public void usualPartialLinkTest() {
+        Assert.assertTrue(driver.findElement(By.partialLinkText("Labs Backpack")).isDisplayed());
+    }
+
+    @Test
+    public void usualTagnameTest() {
+        Assert.assertTrue(driver.findElement(By.tagName("button")).isDisplayed());
+    }
+
+
+    @Test
     public void idTest() {
         Assert.assertTrue(driver.findElement(By.cssSelector("#shopping_cart_container")).isDisplayed());
     }
@@ -106,6 +127,17 @@ public class LocatorTest {
     @Test
     public void precedingTest() {
         Assert.assertTrue(driver.findElement(By.xpath("//div/div[@class='inventory_item']/preceding::img")).isDisplayed());
+    }
+
+
+    @Test
+    public void fewMissingCssLocatorsTest() {
+        driver.findElement(By.cssSelector("[name='add-to-cart-sauce-labs-backpack']")).click();
+        driver.findElement(By.cssSelector("[id*='cart_cont']")).click();
+        Assert.assertEquals(driver.findElement(By.cssSelector("[class$='cart_badge']")).getText(), "1");
+        Assert.assertTrue(driver.findElement(By.cssSelector("[name|='remove']")).isDisplayed());
+        Assert.assertTrue(driver.findElement(By.cssSelector("[id^='item_4_title']")).isDisplayed());
+        Assert.assertTrue(driver.findElement(By.cssSelector("[class~='checkout_button']")).isDisplayed());
     }
 
 
